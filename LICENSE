@@ -1,0 +1,21 @@
+This is my final project for embedded systems. It consists in a gas detection system that can prevent fires and/or gas poisoning.
+It's based on Arduino, this micro controller takes air, temperature and humidity samples to detect a potentially dangerous situation, through
+an ESP8266-01 ("Wifi module") it continuoslly sends the samples over WiFi to a server made in python that is running on a raspberry pi, this
+server stores data for later analysis and also shows it in real time (it could also send it to a cloud).
+When a dangerous situation is detected the server ask an IOT camera for a photo and then the server analises it and checks if a person is in the room or not,
+based on that the system can act accordly, sending just an alert mail or informing rescuers for help.
+
+Basic schema
+sensors >> Arduino (through serial comms) >> ESP8266 (through WiFi comm) >> server (.py) (in a dangerous situation) >> Camera (analysis) >> Call rescuers
+
+Technologies used:
+- Arduino (Mega) as the microcontroller
+- Sensors: TMP36GZ (temperature sensor), DHT11 (digital temperature, and humidity sensor), MQ-02 (smoke sensor, it could be replaced by other kind of gas sensor)
+- ESP8266 (v-01) as the WiFi module
+- Python for the server (built from the ground)
+- Raspberry PI 4 as the server (or fog server)
+- OpenCV and python for computer vision (person detection)
+- IOT camera (I'm using and Andriod smartphone because I had one but ESP32 cam could be used for example or any other iot camera)
+
+
+                                                                        

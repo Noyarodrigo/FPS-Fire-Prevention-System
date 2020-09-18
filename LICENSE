@@ -2,7 +2,7 @@ This is my final project for embedded systems. It consists in a gas detection sy
 It's based on Arduino, this micro controller takes air, temperature and humidity samples to detect a potentially dangerous situation, through
 an ESP8266-01 ("Wifi module") it continuoslly sends the samples over WiFi to a server made in python that is running on a raspberry pi, this
 server stores data for later analysis and also shows it in real time (it could also send it to a cloud).
-When a dangerous situation is detected the server ask an IOT camera for a photo and then the server analises it and checks if a person is in the room or not,
+When a dangerous situation is detected the server asks to an IOT camera for a photo and then the server analises it and checks if a person is in the room or not,
 based on that the system can act accordly, sending just an alert mail or informing rescuers for help.
 
 Basic schema

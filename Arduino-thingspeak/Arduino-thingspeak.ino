@@ -7,6 +7,8 @@ double temp;        //The variable we will use to store temperature in degrees.
 
 const int DHTPin = 48;
 DHT dht(DHTPin, DHTTYPE);
+
+String apiKey = "AGO3Y6O5OF03OMSB";
  
 void setup() {
   // put your setup code here, to run once:
@@ -14,7 +16,7 @@ void setup() {
   dht.begin();
 }
 void loop() {
-  delay(2000);
+  delay(10000);
   msg = "";
   // put your main code here, to run repeatedly: 
   sensorInput = analogRead(A0);    //read the analog sensor and store it
@@ -24,8 +26,17 @@ void loop() {
   temp = temp * 100;               //Convert to degrees 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  //msg = temp del gz36, humedad, temp hdt11, ;
-  msg = String(temp) + "," + String(h) + "," + String(t) + ";";
-  Serial.print(msg);
+  
+  //msg = String(temp) + "," + String(h) + "," + String(t) + ";";
+  String postStr = apiKey;
+  postStr +="&field1=";
+  postStr += String(temp);
+  postStr +="&field2=";
+  postStr += String(h);
+  postStr +="&field3=";
+  postStr += String(t);
+  postStr += "\r\n\r\n";
+  postStr += String(";");
+  Serial.print(postStr);
   Serial.flush();
 }

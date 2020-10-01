@@ -1,6 +1,10 @@
 import socketserver
 import file_funcs as ff
 from startup import *
+#import graf as gr
+#import multiprocessing
+
+buff = []
 
 class TcpThreads(socketserver.ThreadingMixIn, socketserver.TCPServer):
     socketserver.TCPServer.allow_reuse_address = True #reuse address when the server is restarted
@@ -11,23 +15,29 @@ class ServerHandler(socketserver.BaseRequestHandler):
         pass
         print("New connection from: ",self.client_address[0])
     def handle(self):
-        self.data = self.request.recv(1024)
+        global buff
+        self.data = self.request.recv(2048)
         #detects whether a sensor is connecting or a browser
         if 'User' in str(self.data):
             pass
         else:
             #prepare the string to add to the queue
             try:
-                ff.writer(self.data, configuration)
+                tmp = ff.parser(self.data,configuration)
+                buff.append(tmp)
+                if len(buff) >= int(configuration['n_of_l']): #block and write the file
+                    ff.writer(buff,configuration)
+                    buff = []
             except:
-                splited = str(self.data).split('/')
-                splited = [i.strip('THID=') for i in splited]
-                print('Error handling the lecture from sensor {}, it may be corrupted contact support'.format(splited[1]))
+                print('Error handling the lecture from sensor, it may be corrupted contact support')
 
 if __name__ == "__main__":
-    configuration = read_conf() #from startup file
+    """q = multiprocessing.Queue()
+    graficador = multiprocessing.Process(target=gr.animate, args=(q,)) #cretes and start writter process
+    graficador.start()
+    """
+    configuration = read_conf()
     print('Configuration:', configuration)
-
     startup(configuration)
     address = (configuration['ip'], int(configuration['port']))
     servidor = TcpThreads(address, ServerHandler) #uses the TcpThread class then handler class

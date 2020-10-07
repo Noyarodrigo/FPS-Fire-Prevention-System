@@ -1,6 +1,5 @@
 #include "DHT.h"
 #define DHTTYPE DHT11
-String msg;
 int sensePin = A0;  //This is the Arduino Pin that will read the sensor output
 int sensorInput;    //The variable we will use to store the sensor input
 double temp;        //The variable we will use to store temperature in degrees. 
@@ -16,8 +15,7 @@ void setup() {
   dht.begin();
 }
 void loop() {
-  delay(10000);
-  msg = "";
+  delay(1100);
   // put your main code here, to run repeatedly: 
   sensorInput = analogRead(A0);    //read the analog sensor and store it
   temp = (double)sensorInput / 1024;       //find percentage of input reading
@@ -27,7 +25,6 @@ void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   
-  //msg = String(temp) + "," + String(h) + "," + String(t) + ";";
   String postStr = apiKey;
   postStr +="&field1=";
   postStr += String(temp);

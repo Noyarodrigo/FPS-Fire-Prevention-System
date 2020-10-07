@@ -1,12 +1,12 @@
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
-#include <ArduinoJson.h>
+//#include <ArduinoJson.h>
 //needed for library
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
-#include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
+#include <WiFiManager.h>         //ht tps://github.com/tzapu/WiFiManager
 
 String data_from_arduino;
-String host = "192.168.1.35";
+String pylogger = "192.168.1.35";
 String thingspeak = "api.thingspeak.com";
 int port = 80;
 String msg = "";
@@ -43,12 +43,13 @@ void setup() {
 }
 
 void loop() {
-  delay(10000);
-  
-  if (Serial.available()>0) {
+  delay(2000);
+  data_from_arduino = "";
+  //if (Serial.available()>0) {
+  while (Serial.available()) {
     data_from_arduino = Serial.readStringUntil(';');
   }
-
+  Serial.flush();
   if (client.connect(thingspeak,port)){
    client.print("POST /update HTTP/1.1\n");
    client.print("Host: api.thingspeak.com\n");
@@ -58,6 +59,11 @@ void loop() {
    client.print("Content-Length: ");
    client.print(data_from_arduino.length());
    client.print("\n\n");
+   client.print(data_from_arduino);
+  }
+  client.stop();
+
+   if (client.connect(pylogger, port)){
    client.print(data_from_arduino);
   }
   client.stop();

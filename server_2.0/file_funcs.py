@@ -1,9 +1,8 @@
 #aathis submodule contains the reader/writter/prepare functions for main.py (server)
 from datetime import datetime
-from startup import *
 import time
 
-ultima_alarma = 1290 
+ultima_alarma = time.time()
 
 def writer(data, configuration):
     with open(configuration['file'], 'a') as lectures:
@@ -14,24 +13,25 @@ def writer(data, configuration):
 
 def parser(data,configuration):
     global ultima_alarma
-    timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    tmp = str(data).split('HTTP')[0]
-    splited = tmp[8:].split(',')
-    splited.append(timestamp)
-    print(splited)
-    time_elapsed = time.time() - ultima_alarma
-    if get_date(60):
-        limit = int(configuration['temp']) #this limit should be taken from the conf file
-        if float(splited[0]) >= limit or float(splited[2]) >= limit: #alarm
+    cleaned = []
+    splited = str(data).split('&')
+    tmp1 = str(splited[1].split('=')[1])
+    cleaned.append(tmp1)
+    hum = str(splited[2].split('=')[1])
+    cleaned.append(hum)
+    tmp2 = str(splited[3].split('=')[1])[:5]
+    print("tmp2: ", tmp2)
+    cleaned.append(tmp2)
+    print(cleaned)
+    tiempo = time.time() - ultima_alarma
+    if tiempo >= 30:
+        print("AAAAAAA")
+        limit = float(configuration['temp']) #this limit has been taken from the conf file
+        print(limit)
+        print(float(tmp2))
+        if float(tmp2) >= limit:
+            print("ALARMAAAAAAAAAa")
+        if float(tmp1) >= limit or float(tmp2) >= limit: #alarm
             print('--Sending Alert--')
-            time_now = datetime.now().strftime("%H:%M:%S").split(':')
-            ultima_alarma = ((int(time_now[0])*60)+int(time_now[1])+(int(time_now[2])/60))
-    return splited
-
-def get_date(sampling_time):
-    time_now = datetime.now().strftime("%H:%M:%S").split(':')
-    delta_time = ((int(time_now[0])*60)+int(time_now[1])+(int(time_now[2])/60))-(ultima_alarma)
-    print(delta_time)
-    if delta_time >= int(sampling_time) or delta_time<0:
-        return True
-    return False
+            ultima_alarma = time.time()
+    return cleaned

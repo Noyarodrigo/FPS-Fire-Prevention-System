@@ -1,8 +1,6 @@
 import socketserver
 import file_funcs as ff
 from startup import *
-#import graf as gr
-#import multiprocessing
 
 buff = []
 
@@ -32,10 +30,7 @@ class ServerHandler(socketserver.BaseRequestHandler):
                 print('Error handling the lecture from sensor, it may be corrupted contact support')
 
 if __name__ == "__main__":
-    """q = multiprocessing.Queue()
-    graficador = multiprocessing.Process(target=gr.animate, args=(q,)) #cretes and start writter process
-    graficador.start()
-    """
+   
     configuration = read_conf()
     print('Configuration:', configuration)
     startup(configuration)

@@ -11,7 +11,7 @@ class TcpThreads(socketserver.ThreadingMixIn, socketserver.TCPServer):
 class ServerHandler(socketserver.BaseRequestHandler):
     def setup(self):
         pass
-        print("New connection from: ",self.client_address[0])
+        print("Nueva conexion desde: ",self.client_address[0])
     def handle(self):
         global buff
         self.data = self.request.recv(2048)
@@ -19,7 +19,6 @@ class ServerHandler(socketserver.BaseRequestHandler):
         if 'User' in str(self.data):
             pass
         else:
-            #prepare the string to add to the queue
             try:
                 tmp = ff.parser(self.data,configuration)
                 buff.append(tmp)

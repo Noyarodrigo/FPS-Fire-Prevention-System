@@ -24,11 +24,12 @@ def parser(data,configuration):
     cleaned.append(tmp2)
     print(cleaned)
     tiempo = time.time() - ultima_alarma
-    print(tiempo)
-    if tiempo >= 30:
+    print("Tiempo desde la ultima alarma: ", tiempo)
+    #llama a la función para ver si hay alarma (alert.py)
+    if tiempo >= 15 and configuration["enable"] == "1":
         limit = float(configuration['temp']) #this limit has been taken from the conf file
         if float(tmp1) >= limit or float(tmp2) >= limit: #alarm
+            ultima_alarma = time.time()
             print('--...SENDING ALERT...--')
             al.sendmail(configuration)
-            ultima_alarma = time.time()
     return cleaned

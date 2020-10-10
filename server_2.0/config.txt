@@ -5,11 +5,11 @@ port=80
 -write file
 file=lectures.csv
 -temperature limit
-temp=25
+temp=26
 -number of lectures before writing the file
 n_of_l=10
 -Enable email alert?(1-enable 2-do not) /email info
-enable=0
+enable=1
 sender=pylogger.by.roi@gmail.com
 password=estaesunaclavemuysegura
 reciever=pylogger.by.roi@gmail.com

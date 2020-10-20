@@ -1,0 +1,19 @@
+#---server conf---
+ip=192.168.1.35
+port=80
+#---limits---
+tmp_limit=30
+gas_limit=1000
+hum_limit=5
+#---writing--- 
+#file and number of lines until write
+file=lectures.csv
+n_of_l=10
+#---email alert----
+#Enable email alert?(1-enable 2-do not) time between alerts (in seconds)
+enable=1
+alert_time=10
+#email info
+sender=pylogger.by.roi@gmail.com
+password=estaesunaclavemuysegura
+reciever=pylogger.by.roi@gmail.com

@@ -3,7 +3,6 @@
 int sensePin = A0;  //This is the Arduino Pin that will read the sensor output
 int sensorInput;    //The variable we will use to store the sensor input
 double temp;        //The variable we will use to store temperature in degrees. 
-
 const int DHTPin = 48;
 DHT dht(DHTPin, DHTTYPE);
 
@@ -24,6 +23,7 @@ void loop() {
   temp = temp * 100;               //Convert to degrees 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
+  int gas = analogRead(A1);
   
   String postStr = apiKey;
   postStr +="&field1=";
@@ -32,6 +32,8 @@ void loop() {
   postStr += String(h);
   postStr +="&field3=";
   postStr += String(t);
+  postStr +="&field4=";
+  postStr += String(gas);
   postStr += "\r\n\r\n";
   postStr += String(";");
   Serial.print(postStr);

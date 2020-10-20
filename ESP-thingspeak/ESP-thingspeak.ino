@@ -64,7 +64,8 @@ void loop() {
   client.stop();
 
    if (client.connect(pylogger, port)){
-   client.print(data_from_arduino);
+    data_from_arduino+= "[1]";
+    client.print(data_from_arduino);
   }
   client.stop();
 }

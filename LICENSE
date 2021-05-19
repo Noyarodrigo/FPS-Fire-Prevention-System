@@ -1,8 +1,10 @@
 This is my final project for embedded systems. It consists in a gas detection system that can prevent fires and/or gas poisoning.
 It's based on Arduino, this micro controller takes air quality, temperature and humidity samples to detect a potentially dangerous situation, through
-an ESP8266-01 ("Wifi module") it continuoslly sends them over WiFi to a server made in python (based on other personal project "pylogger") that is running on a raspberry pi, this server stores data in csv format for later analysis and also shows it in real time using thingspeak.
+an ESP8266-01 ("Wifi module") it continuoslly sends them over WiFi to a server made in python (based on other personal project "pylogger")
+that is running on a raspberry pi, this server stores data in csv format for later analysis and also shows it in real time using thingspeak.
 
-When a dangerous situation is detected the server asks to several IOT cameras for a few photos (this is pretty configurable), then the server sends an email with the sample values that caused the alarm including wich microcontroller was responsible and attach also the mentioned photos for a better understanding of the situation.
+When a dangerous situation is detected the server asks to several IOT cameras for a few photos (this is pretty configurable), then the server sends an email with
+the sample values that caused the alarm including wich microcontroller was responsible and attach also the mentioned photos for a better understanding of the situation.
 
 IMPORTANT: There's a configuration readme that explain how to use the server. Arduino configuration must be done with an IDE but its pretty straight forward.
 

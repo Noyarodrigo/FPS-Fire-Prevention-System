@@ -4,6 +4,8 @@ an ESP8266-01 ("Wifi module") it continuoslly sends them over WiFi to a server m
 
 When a dangerous situation is detected the server asks to several IOT cameras for a few photos (this is pretty configurable), then the server sends an email with the sample values that caused the alarm including wich microcontroller was responsible and attach also the mentioned photos for a better understanding of the situation.
 
+IMPORTANT: There's a configuration readme that explain how to use the server. Arduino configuration must be done with an IDE but its pretty straight forward.
+
 Basic schema
 sensors >> Arduino (through serial comms) >> ESP8266 (through WiFi comm) >> server (.py) (in a dangerous situation) >> Camera (analysis) >> Call rescuers
 
@@ -16,5 +18,8 @@ Technologies used:
 - OpenCV and python for computer vision (person detection)
 - IOT camera (I'm using and Andriod smartphone because I had one but ESP32 cam could be used for example or any other iot camera)
 
+Here's the final inform (in spanish) that explain carefully how the system works.
 
-                                                                        
+https://docs.google.com/document/d/1KQ12OgGwtq_Dr4XLAycTSCSPfSkMnY5f-GzBhtvvPAE/edit?usp=sharing
+
+ROI - 2020

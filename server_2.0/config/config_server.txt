@@ -16,4 +16,4 @@ alert_time=10
 #email info
 sender=
 password=
-reciever=pylogger.by.roi@gmail.com
+reciever=

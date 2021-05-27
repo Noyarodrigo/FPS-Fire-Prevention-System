@@ -14,6 +14,6 @@ n_of_l=10
 enable=1
 alert_time=10
 #email info
-sender=pylogger.by.roi@gmail.com
-password=estaesunaclavemuysegura
+sender=
+password=
 reciever=pylogger.by.roi@gmail.com
